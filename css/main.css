@@ -65,3 +65,7 @@ img {
 #loader {
 	margin: 0 auto;
 }
+
+.mdl-layout__content {
+  overflow-y: hidden;
+}
