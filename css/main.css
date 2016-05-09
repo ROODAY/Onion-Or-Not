@@ -69,3 +69,7 @@ img {
 .mdl-layout__content {
   overflow-y: hidden;
 }
+
+#high-score {
+  display: none;
+}
