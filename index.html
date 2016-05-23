@@ -26,7 +26,6 @@
 
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" href="css/normalize.min.css">
-		<link rel="stylesheet" href="css/sweetalert.css">
 		<link rel="stylesheet" href="css/material.min.css">
 		<link rel="stylesheet" href="css/main.min.css">
 	</head>
@@ -59,29 +58,22 @@
 				</div>
 				<div class="mdl-grid">
 				  <div class="mdl-cell mdl-cell--12-col text-center">
-				  	<h3>Score: <span id="score">0</span></h3> <br>
+				  	<h4><a target="_blank" href="#" id="last-article">Link to Last Article</a></h4>
+				  	<h3>Score: <span id="score">0</span></h3>
 				  	<h2 id="high-score">High Score: 0</h2>
 				  </div>
 				</div>
-				<img class="mdl-layout--large-screen-only" src="img/onionlogo.png" alt="The Onion Logo">
 		    </div>
 		  </main>
-		</div>	
+		</div>
 
-		<footer class="mdl-mini-footer">
-		  <div class="mdl-mini-footer__left-section">
-		    <div class="mdl-logo">Onion or Not?</div>
-		    <ul class="mdl-mini-footer__link-list">
-		      <li><a href="https://github.com/ROODAY/Onion-Or-Not">View Source on Github</a></li>
-		      <li><a href="https://rooday.com/">ROODAY</a></li>
-		      <li></li>
-		    </ul>
-		  </div>
-		</footer>
+		<div id="toast-container" class="mdl-js-snackbar mdl-snackbar">
+		  <div class="mdl-snackbar__text"></div>
+		  <button class="mdl-snackbar__action" type="button"></button>
+		</div>
 
-		<script src"js/material.min.js"></script>
+		<script src="js/material.min.js"></script>
 		<script src="js/reddit.min.js"></script>
-		<script src="js/sweetalert.min.js"></script>
 		<script src="js/main.min.js"></script>
 	</body>
 </html>

@@ -4,17 +4,6 @@
 html, body {
   height: 100%;
 }
-.mdl-layout {
-  min-height: 100%;
-  margin-bottom: -36px; 
-}
-.mdl-layout:after {
-  content: "";
-  display: block;
-}
-.mdl-mini-footer, .mdl-layout:after {
-  height: 36px; 
-}
 
 #article-title {
 	text-align: center;
@@ -31,11 +20,6 @@ html, body {
 
 .text-center {
 	text-align: center;
-}
-
-img {
-	display: block;
-	margin: 0 auto;
 }
 
 .mdl-layout__header {

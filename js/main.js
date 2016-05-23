@@ -6,6 +6,9 @@ var titleElement = document.getElementById('article-title');
 var scoreElement = document.getElementById('score');
 var loaderElement = document.getElementById('loader');
 var highscoreElement = document.getElementById('high-score');
+var snackbarContainer = document.querySelector('#toast-container');
+var lastArticleLink = document.getElementById('last-article');
+var lastFiftyArticles = [];
 var number;
 
 if (storageAvailable('localStorage')) {
@@ -20,12 +23,13 @@ setNewTitle();
 
 onionButton.addEventListener('click', function() {
 	if (number === 0) {
-		swal({   
-			title: "Good job!",   
-			text: "You got it right! Check out the actual <a target='_blank' href=" + currentArticle.url + ">article</a>!",
-			type: "success",   
-			html: true 
-		}, setNewTitle);
+		var data = {
+			message: 'You got it right!',
+			timeout: 1000
+		};
+		snackbarContainer.MaterialSnackbar.showSnackbar(data);
+		lastArticleLink.href = currentArticle.url;
+		setNewTitle();
 		score += 1;
 		if (highscore !== undefined) {
 			if (score > highscore) {
@@ -36,23 +40,25 @@ onionButton.addEventListener('click', function() {
 		}	
 		scoreElement.innerHTML = score;
 	} else {
-		swal({   
-			title: "Nope.",   
-			text: "Maybe next time. Check out the actual <a target='_blank' href=" + currentArticle.url + ">article</a>!",
-			type: "error",   
-			html: true 
-		}, setNewTitle);
+		var data = {
+			message: 'Nope, maybe next time.',
+			timeout: 1000
+		};
+		snackbarContainer.MaterialSnackbar.showSnackbar(data);
+		lastArticleLink.href = currentArticle.url;
+		setNewTitle();
 	}
 }, false);
 
 notButton.addEventListener('click', function() {
 	if (number === 1) {
-		swal({   
-			title: "Good job!",   
-			text: "You got it right! Check out the actual <a target='_blank' href=" + currentArticle.url + ">article</a>!",
-			type: "success",   
-			html: true 
-		}, setNewTitle);
+		var data = {
+			message: 'You got it right!',
+			timeout: 1000
+		};
+		snackbarContainer.MaterialSnackbar.showSnackbar(data);
+		lastArticleLink.href = currentArticle.url;
+		setNewTitle();
 		score += 1;
 		if (highscore !== undefined) {
 			if (score > highscore) {
@@ -60,15 +66,16 @@ notButton.addEventListener('click', function() {
 				localStorage.setItem('onion-highscore', highscore);
 				highscoreElement.innerHTML = "High Score: " + highscore;
 			}
-		}
+		}	
 		scoreElement.innerHTML = score;
 	} else {
-		swal({   
-			title: "Nope.",   
-			text: "Maybe next time. Check out the actual <a target='_blank' href=" + currentArticle.url + ">article</a>!",
-			type: "error",   
-			html: true 
-		}, setNewTitle);
+		var data = {
+			message: 'Nope, maybe next time.',
+			timeout: 1000
+		};
+		snackbarContainer.MaterialSnackbar.showSnackbar(data);
+		lastArticleLink.href = currentArticle.url;
+		setNewTitle();
 	}
 }, false);
 
@@ -79,16 +86,36 @@ function setNewTitle() {
 	if (number === 0) {
 		reddit.random("theonion").fetch(function(res) {
 		    currentArticle = res[0].data.children[0].data;
-		    titleElement.innerHTML = currentArticle.title;
-		    titleElement.style.display = "block";
-		    loaderElement.style.display = "none";
+		    if (lastFiftyArticles.indexOf(currentArticle.title) > 0) {
+		    	setNewTitle();
+		    } else {
+		    	titleElement.innerHTML = currentArticle.title;
+			    if (lastFiftyArticles.length < 50) {
+			    	lastFiftyArticles.push(currentArticle.title);
+			    } else {
+			    	lastFiftyArticles.shift();
+			    	lastFiftyArticles.push(currentArticle.title);
+			    }
+			    titleElement.style.display = "block";
+			    loaderElement.style.display = "none";
+		    }
 		});
 	} else {
 		reddit.random("nottheonion").fetch(function(res) {
 		    currentArticle = res[0].data.children[0].data;
-		    titleElement.innerHTML = currentArticle.title;
-		    titleElement.style.display = "block";
-		    loaderElement.style.display = "none";
+		    if (lastFiftyArticles.indexOf(currentArticle.title) > 0) {
+		    	setNewTitle();
+		    } else {
+				titleElement.innerHTML = currentArticle.title;
+			    if (lastFiftyArticles.length < 50) {
+			    	lastFiftyArticles.push(currentArticle.title);
+			    } else {
+			    	lastFiftyArticles.shift();
+			    	lastFiftyArticles.push(currentArticle.title);
+			    }
+			    titleElement.style.display = "block";
+			    loaderElement.style.display = "none";
+		    } 
 		});
 	}
 }
