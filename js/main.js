@@ -19,6 +19,10 @@ if (storageAvailable('localStorage')) {
 	}
 }
 
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
+
 setNewTitle();	
 
 onionButton.addEventListener('click', function() {
@@ -89,7 +93,7 @@ function setNewTitle() {
 		    if (lastFiftyArticles.indexOf(currentArticle.title) > 0) {
 		    	setNewTitle();
 		    } else {
-		    	titleElement.innerHTML = currentArticle.title;
+		    	titleElement.innerHTML = toTitleCase(currentArticle.title);
 			    if (lastFiftyArticles.length < 50) {
 			    	lastFiftyArticles.push(currentArticle.title);
 			    } else {
@@ -106,7 +110,7 @@ function setNewTitle() {
 		    if (lastFiftyArticles.indexOf(currentArticle.title) > 0) {
 		    	setNewTitle();
 		    } else {
-				titleElement.innerHTML = currentArticle.title;
+				titleElement.innerHTML = toTitleCase(currentArticle.title);
 			    if (lastFiftyArticles.length < 50) {
 			    	lastFiftyArticles.push(currentArticle.title);
 			    } else {
